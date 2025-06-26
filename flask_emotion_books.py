@@ -8,6 +8,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.losses import MeanSquaredError
 from tensorflow.keras.layers import Layer
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
+import os
 
 # ───────────────────────────────────────────────
 # ✅ Custom SelfAttention Layer (used in training)
@@ -105,5 +106,11 @@ def recommend():
 # ───────────────────────────────────────────────
 # ✅ Run Flask App
 # ───────────────────────────────────────────────
+import os
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Grab the port from the environment (Render sets $PORT)
+    port = int(os.environ.get("PORT", 5000))
+    # Listen on 0.0.0.0 so it’s reachable externally
+    app.run(host="0.0.0.0", port=port, debug=True)
+
